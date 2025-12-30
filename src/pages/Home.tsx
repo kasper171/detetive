@@ -1,10 +1,23 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Terminal, MessageSquare, Shield, AlertTriangle, Skull } from "lucide-react";
+import { Terminal, MessageSquare, Shield, AlertTriangle, Skull, Play } from "lucide-react";
 import { MatrixRain } from "@/components/MatrixRain";
 import { TerminalLine } from "@/components/TerminalLine";
+import { useEffect, useRef } from "react";
 
 const Home = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Auto-play video with audio when page loads
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Browser may block autoplay with audio, user needs to interact
+        console.log("Autoplay blocked - user interaction required");
+      });
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Matrix Rain Background */}
@@ -60,6 +73,53 @@ const Home = () => {
               <h2 className="text-xl font-bold text-destructive uppercase tracking-wider">
                 [!] ALERTA: NOTA DE ESCLARECIMENTO PÚBLICO
               </h2>
+            </div>
+          </div>
+
+          {/* Video Section */}
+          <div className="flex justify-center mb-8">
+            <div className="relative group">
+              {/* Glow effect */}
+              <div className="absolute -inset-3 bg-primary/20 blur-xl rounded-lg" />
+              
+              {/* Terminal-style container */}
+              <div className="relative bg-card/90 border border-primary/50 rounded-sm overflow-hidden box-glow">
+                {/* Terminal header */}
+                <div className="bg-primary/20 px-3 py-1.5 border-b border-primary/30 flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-destructive" />
+                  <div className="w-2 h-2 rounded-full bg-yellow-500" />
+                  <div className="w-2 h-2 rounded-full bg-primary" />
+                  <span className="ml-2 text-xs text-muted-foreground font-mono">playback://1337.mp4</span>
+                  <Play className="w-3 h-3 text-primary ml-auto" />
+                </div>
+                
+                {/* Video container */}
+                <div className="relative">
+                  <video
+                    ref={videoRef}
+                    src="/attachments/1337.mp4"
+                    className="w-64 h-auto max-w-full"
+                    controls
+                    autoPlay
+                    playsInline
+                  />
+                  
+                  {/* Scanline overlay on video */}
+                  <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
+                </div>
+                
+                {/* Bottom bar */}
+                <div className="bg-background/80 px-3 py-1 border-t border-primary/30">
+                  <p className="text-xs font-mono text-primary terminal-glow">
+                    {">"} EVIDÊNCIA_AUDIOVISUAL
+                  </p>
+                </div>
+              </div>
+              
+              {/* Corner decoration */}
+              <div className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground px-2 py-0.5 rounded-sm text-xs font-bold font-mono">
+                [PROVA]
+              </div>
             </div>
           </div>
 
