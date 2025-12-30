@@ -111,14 +111,14 @@ const Home = () => {
                 {/* Bottom bar */}
                 <div className="bg-background/80 px-3 py-1 border-t border-primary/30">
                   <p className="text-xs font-mono text-primary terminal-glow">
-                    {">"} EVIDÊNCIA_AUDIOVISUAL
+                    {">"} 1337_EQUIPESOMBRA
                   </p>
                 </div>
               </div>
               
               {/* Corner decoration */}
               <div className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground px-2 py-0.5 rounded-sm text-xs font-bold font-mono">
-                [PROVA]
+                [1337]
               </div>
             </div>
           </div>
